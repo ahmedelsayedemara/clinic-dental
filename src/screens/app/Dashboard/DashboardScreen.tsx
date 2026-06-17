@@ -3,14 +3,15 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import ScreenContainer from '@/components/global/ScreenContainer';
+import AppHeader from '@/components/global/AppHeader';
 import SectionLoader from '@/components/global/SectionLoader';
 import Empty from '@/components/global/Empty';
 import { PatientCard } from '@/components/patients';
 import { AppointmentCard } from '@/components/appointments';
 import { StatCard, DashboardSection, QuickSearchBar } from '@/components/dashboard';
-import { Text } from '@/components/UI';
 import { useTheme } from '@/theme/ThemeProvider';
 import { useDashboard } from '@/hooks/useDashboard';
+import { useTabBarSpace } from '@/hooks/useTabBarSpace';
 import { ScreenName } from '@/constants/screenName';
 
 export default function DashboardScreen() {
@@ -23,6 +24,7 @@ export default function DashboardScreen() {
 
   // Hooks
   const { stats, recentPatients, upcomingAppointments, isLoading, refresh } = useDashboard();
+  const bottomSpace = useTabBarSpace();
 
   // Handlers / Callbacks
   const handleRefresh = useCallback(async () => {
@@ -55,19 +57,15 @@ export default function DashboardScreen() {
 
   // Render helpers
   const renderStats = () => (
-    <View className="flex-row mx-4 mb-4 gap-3">
+    <View className="flex-row mx-4 mb-4" style={{ gap: 12 }}>
       <StatCard
-        icon={
-          <MaterialDesignIcons name="account-group-outline" size={22} color={theme.primary} />
-        }
+        icon={<MaterialDesignIcons name="account-group-outline" size={22} color={theme.primary} />}
         label={$t('DASHBOARD.TOTAL_PATIENTS')}
         value={stats.totalPatients}
         accentColor={theme.primary}
       />
       <StatCard
-        icon={
-          <MaterialDesignIcons name="calendar-clock-outline" size={22} color={theme.success} />
-        }
+        icon={<MaterialDesignIcons name="calendar-clock-outline" size={22} color={theme.success} />}
         label={$t('DASHBOARD.UPCOMING_APPOINTMENTS')}
         value={stats.upcomingAppointmentsCount}
         accentColor={theme.success}
@@ -83,12 +81,7 @@ export default function DashboardScreen() {
       padded={false}
       refreshing={refreshing}
       onRefresh={handleRefresh}>
-      {/* Header */}
-      <View className="mx-4 mt-4 mb-5">
-        <Text className="text-2xl font-ibm-bold" style={{ color: theme.text }}>
-          {$t('DASHBOARD.TITLE')}
-        </Text>
-      </View>
+      <AppHeader title={$t('DASHBOARD.TITLE')} showBack={false} />
 
       {/* Quick search */}
       <QuickSearchBar onPress={handleSearchPress} />
@@ -114,13 +107,7 @@ export default function DashboardScreen() {
             onViewAll={handleViewAllPatients}>
             {recentPatients.length === 0 ? (
               <Empty
-                icon={
-                  <MaterialDesignIcons
-                    name="account-outline"
-                    size={40}
-                    color={theme.border}
-                  />
-                }
+                icon={<MaterialDesignIcons name="account-outline" size={40} color={theme.border} />}
                 title={$t('PATIENTS.NO_PATIENTS')}
               />
             ) : (
@@ -155,6 +142,9 @@ export default function DashboardScreen() {
           </DashboardSection>
         </>
       )}
+
+      {/* Spacer so content clears the floating tab bar */}
+      <View style={{ height: bottomSpace }} />
     </ScreenContainer>
   );
 }

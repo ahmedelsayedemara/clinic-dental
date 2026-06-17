@@ -1,16 +1,18 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { FlatList, RefreshControl, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import ScreenContainer from '@/components/global/ScreenContainer';
 import AppHeader from '@/components/global/AppHeader';
 import SectionLoader from '@/components/global/SectionLoader';
 import Empty from '@/components/global/Empty';
-import { AppointmentCard } from '@/components/appointments';
+import AnimatedListItem from '@/components/global/AnimatedListItem';
+import { AppointmentCard, FilterChip } from '@/components/appointments';
 import { Text } from '@/components/UI';
 import { useTheme } from '@/theme/ThemeProvider';
 import { useAppointments } from '@/hooks/useAppointments';
+import { useTabBarSpace } from '@/hooks/useTabBarSpace';
 import {
   Appointment,
   AppointmentStatus,
@@ -22,30 +24,6 @@ import { formatDate } from '@/helper';
 type NavProp = NativeStackNavigationProp<RootStackParamList>;
 
 type FilterStatus = 'all' | AppointmentStatus;
-
-interface FilterChipProps {
-  label: string;
-  isActive: boolean;
-  onPress: () => void;
-}
-
-function FilterChip({ label, isActive, onPress }: FilterChipProps) {
-  const { theme } = useTheme();
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      className="px-3 py-1.5 rounded-full mr-2"
-      style={{
-        backgroundColor: isActive ? theme.primary : theme.surface,
-      }}>
-      <Text
-        className="text-xs font-ibm-medium"
-        style={{ color: isActive ? '#FFFFFF' : theme.textSecondary }}>
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-}
 
 function groupByDay(
   appointments: Appointment[],
@@ -66,10 +44,12 @@ export default function AppointmentsScreen() {
   // State
   const [refreshing, setRefreshing] = useState(false);
   const [activeFilter, setActiveFilter] = useState<FilterStatus>('all');
+  const isFirstFocus = useRef(true);
 
   // Variables
   const { theme } = useTheme();
   const { appointments, isLoading, hasFetched, refresh } = useAppointments();
+  const bottomSpace = useTabBarSpace();
 
   const filteredAppointments =
     activeFilter === 'all' ? appointments : appointments.filter(a => a.status === activeFilter);
@@ -94,12 +74,24 @@ export default function AppointmentsScreen() {
     navigation.navigate(ScreenName.ADD_EDIT_APPOINTMENT_SCREEN, undefined);
   }, [navigation]);
 
+  // Effects — refresh the list whenever the screen regains focus (e.g. returning
+  // from Add/Edit Appointment). Skip the first focus since useAppointments loads on mount.
+  useFocusEffect(
+    useCallback(() => {
+      if (isFirstFocus.current) {
+        isFirstFocus.current = false;
+        return;
+      }
+      refresh();
+    }, [refresh]),
+  );
+
   // Render helpers
   const renderGroup = useCallback(
-    ({ item }: { item: { dateLabel: string; items: Appointment[] } }) => (
-      <View>
+    ({ item, index }: { item: { dateLabel: string; items: Appointment[] }; index: number }) => (
+      <AnimatedListItem index={index} itemKey={item.dateLabel}>
         {/* Day header */}
-        <View className="mx-4 mt-4 mb-1 flex-row items-center gap-2">
+        <View className="mx-4 mt-4 mb-1 flex-row items-center " style={{ gap: 10 }}>
           <View className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.primary }} />
           <Text className="text-sm font-ibm-medium" style={{ color: theme.textSecondary }}>
             {item.dateLabel}
@@ -109,7 +101,7 @@ export default function AppointmentsScreen() {
         {item.items.map(appt => (
           <AppointmentCard key={appt.id} appointment={appt} onPress={handleAppointmentPress} />
         ))}
-      </View>
+      </AnimatedListItem>
     ),
     [theme, handleAppointmentPress],
   );
@@ -122,8 +114,16 @@ export default function AppointmentsScreen() {
 
   // Return UI
   return (
-    <ScreenContainer safeAreaEdges={['top']} padded={false}>
-      <AppHeader title={$t('APPOINTMENTS.TITLE')} showBack={false} />
+    <ScreenContainer safeAreaEdges={['top', 'bottom']} padded={false}>
+      <AppHeader
+        title={$t('APPOINTMENTS.TITLE')}
+        showBack={false}
+        rightElement={
+          <TouchableOpacity onPress={handleAddAppointment} className="p-2" activeOpacity={0.7}>
+            <MaterialDesignIcons name="plus" size={26} color={theme.primary} />
+          </TouchableOpacity>
+        }
+      />
 
       {/* Filter chips */}
       <View className="px-4 pb-2">
@@ -178,7 +178,7 @@ export default function AppointmentsScreen() {
               }
             />
           }
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={{ paddingBottom: bottomSpace }}
         />
       )}
 
@@ -195,19 +195,10 @@ export default function AppointmentsScreen() {
               colors={[theme.primary]}
             />
           }
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={{ paddingBottom: bottomSpace }}
           showsVerticalScrollIndicator={false}
         />
       )}
-
-      {/* FAB */}
-      <TouchableOpacity
-        onPress={handleAddAppointment}
-        className="absolute bottom-20 right-6 w-14 h-14 rounded-full items-center justify-center"
-        style={{ backgroundColor: theme.primary }}
-        activeOpacity={0.85}>
-        <MaterialDesignIcons name="plus" size={28} color="#FFFFFF" />
-      </TouchableOpacity>
     </ScreenContainer>
   );
 }
@@ -215,23 +206,5 @@ export default function AppointmentsScreen() {
 const styles = StyleSheet.create({
   filterList: {
     paddingVertical: 4,
-  },
-  listContent: {
-    paddingBottom: 100, // account for FAB
-  },
-  fab: {
-    position: 'absolute',
-    bottom: 24,
-    right: 24,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.18,
-    shadowRadius: 8,
-    elevation: 6,
   },
 });

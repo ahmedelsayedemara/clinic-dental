@@ -1,36 +1,16 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
 import Toast from 'react-native-toast-message';
 import ScreenContainer from '@/components/global/ScreenContainer';
 import AppHeader from '@/components/global/AppHeader';
 import SectionLoader from '@/components/global/SectionLoader';
-import { FormDatePicker, FormTextAreaInput, FormInput, FormButton } from '@/components/form';
-import { Text } from '@/components/UI';
-import { useTheme } from '@/theme/ThemeProvider';
+import VisitForm, { VisitFormValues } from '@/components/visits/VisitForm';
 import { visitService } from '@/api/services/visitService/visitService';
 import { Visit, AddVisitPayload } from '@/api/services/visitService/visitInterface';
 import { RootStackParamList } from '@/types/navigation';
 import { ScreenName } from '@/constants/screenName';
 
 type Props = NativeStackScreenProps<RootStackParamList, ScreenName.ADD_EDIT_VISIT_SCREEN>;
-
-const validationSchema = Yup.object().shape({
-  visitDate: Yup.string().required($t('VALIDATORS.REQUIRED')),
-  diagnosis: Yup.string(),
-  treatmentPerformed: Yup.string(),
-  notes: Yup.string(),
-  amountTotal: Yup.number()
-    .transform((value, originalValue) => (originalValue === '' ? undefined : value))
-    .nullable()
-    .min(0),
-  amountPaid: Yup.number()
-    .transform((value, originalValue) => (originalValue === '' ? undefined : value))
-    .nullable()
-    .min(0),
-});
 
 export default function AddEditVisitScreen({ navigation, route }: Props) {
   // State
@@ -39,7 +19,6 @@ export default function AddEditVisitScreen({ navigation, route }: Props) {
   const [prefetchedVisit, setPrefetchedVisit] = useState<Visit | null>(null);
 
   // Variables
-  const { theme } = useTheme();
   const patientId = route.params?.patientId ?? '';
   const visitId = route.params?.visitId;
   const isEdit = !!visitId;
@@ -65,11 +44,9 @@ export default function AddEditVisitScreen({ navigation, route }: Props) {
     }
   }, [isEdit, fetchVisit]);
 
-  // Compute the default "now" once — recomputing new Date() every render would make
-  // `initialValues` look different each render and, with enableReinitialize, reset the
-  // form (wiping user input) on every render.
+  // Compute the default "now" once so enableReinitialize doesn't reset the form each render.
   const defaultVisitDate = useRef(new Date().toISOString()).current;
-  const initialValues = useMemo(
+  const initialValues = useMemo<VisitFormValues>(
     () => ({
       visitDate: prefetchedVisit?.visitDate ?? defaultVisitDate,
       diagnosis: prefetchedVisit?.diagnosis ?? '',
@@ -81,7 +58,7 @@ export default function AddEditVisitScreen({ navigation, route }: Props) {
     [prefetchedVisit, defaultVisitDate],
   );
 
-  const handleSubmit = async (values: typeof initialValues) => {
+  const handleSubmit = async (values: VisitFormValues) => {
     setIsLoading(true);
     try {
       const payload: AddVisitPayload = {
@@ -120,56 +97,12 @@ export default function AddEditVisitScreen({ navigation, route }: Props) {
       {isFetching && <SectionLoader style="list" />}
 
       {!isFetching && (
-        <Formik
+        <VisitForm
           initialValues={initialValues}
-          validationSchema={validationSchema}
+          isEdit={isEdit}
+          isLoading={isLoading}
           onSubmit={handleSubmit}
-          enableReinitialize>
-          {({ handleSubmit: formikSubmit }) => (
-            <View className="px-4 pb-8">
-              {/* Section 1: Visit Info */}
-              <Text className="text-base font-ibm-bold mt-4 mb-3" style={{ color: theme.text }}>
-                {$t('VISITS.VISIT_INFO_SECTION')}
-              </Text>
-
-              <FormDatePicker
-                name="visitDate"
-                placeholder={$t('VISITS.VISIT_DATE')}
-                maximumDate={new Date(2100, 11, 31)}
-              />
-
-              <FormTextAreaInput name="diagnosis" label={$t('VISITS.DIAGNOSIS')} />
-
-              <FormTextAreaInput name="treatmentPerformed" label={$t('VISITS.TREATMENT')} />
-
-              <FormTextAreaInput name="notes" label={$t('VISITS.NOTES')} />
-
-              {/* Section 2: Payment */}
-              <Text className="text-base font-ibm-bold mt-4 mb-3" style={{ color: theme.text }}>
-                {$t('VISITS.PAYMENT_SECTION')}
-              </Text>
-
-              <FormInput
-                name="amountTotal"
-                label={$t('VISITS.AMOUNT_TOTAL')}
-                keyboardType="numeric"
-              />
-
-              <FormInput
-                name="amountPaid"
-                label={$t('VISITS.AMOUNT_PAID')}
-                keyboardType="numeric"
-              />
-
-              {/* Submit */}
-              <FormButton
-                title={isEdit ? $t('COMMON.UPDATE') : $t('COMMON.SAVE')}
-                loading={isLoading}
-                onPress={() => formikSubmit()}
-              />
-            </View>
-          )}
-        </Formik>
+        />
       )}
     </ScreenContainer>
   );

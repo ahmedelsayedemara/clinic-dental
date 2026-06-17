@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types/navigation';
 import { ScreenName } from '@/constants/screenName';
 import ScreenContainer from '@/components/global/ScreenContainer';
+import AppHeader from '@/components/global/AppHeader';
 import ConfirmationDialog from '@/components/global/ConfirmationDialog';
 import { Text } from '@/components/UI';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -34,42 +35,42 @@ export default function MoreScreen({ navigation }: Props) {
 
   // Render
   return (
-    <ScreenContainer safeAreaEdges={['top', 'bottom']}>
-      <Text className="text-2xl font-ibm-bold mb-6 mt-2" style={{ color: theme.text }}>
-        {$t('MORE.TITLE')}
-      </Text>
+    <ScreenContainer safeAreaEdges={['top', 'bottom']} padded={false}>
+      <AppHeader title={$t('MORE.TITLE')} showBack={false} />
 
-      {/* Settings */}
-      <TouchableOpacity
-        className="flex-row items-center py-4 border-b"
-        style={{ borderBottomColor: theme.border }}
-        onPress={() => navigation.navigate(ScreenName.SETTINGS_SCREEN)}
-        activeOpacity={0.7}>
-        <Text className="flex-1 text-base font-ibm-medium" style={{ color: theme.text }}>
-          {$t('MORE.SETTINGS')}
-        </Text>
-      </TouchableOpacity>
+      <View className="px-4 mt-2">
+        {/* Settings */}
+        <TouchableOpacity
+          className="flex-row items-center py-4 border-b"
+          style={{ borderBottomColor: theme.border }}
+          onPress={() => navigation.navigate(ScreenName.SETTINGS_SCREEN)}
+          activeOpacity={0.7}>
+          <Text className="flex-1 text-base font-ibm-medium" style={{ color: theme.text }}>
+            {$t('MORE.SETTINGS')}
+          </Text>
+        </TouchableOpacity>
 
-      {/* About */}
-      <TouchableOpacity
-        className="flex-row items-center py-4 border-b"
-        style={{ borderBottomColor: theme.border }}
-        onPress={() => navigation.navigate(ScreenName.ABOUT_SCREEN)}
-        activeOpacity={0.7}>
-        <Text className="flex-1 text-base font-ibm-medium" style={{ color: theme.text }}>
-          {$t('MORE.ABOUT')}
-        </Text>
-      </TouchableOpacity>
+        {/* About */}
+        <TouchableOpacity
+          className="flex-row items-center py-4 border-b"
+          style={{ borderBottomColor: theme.border }}
+          onPress={() => navigation.navigate(ScreenName.ABOUT_SCREEN)}
+          activeOpacity={0.7}>
+          <Text className="flex-1 text-base font-ibm-medium" style={{ color: theme.text }}>
+            {$t('MORE.ABOUT')}
+          </Text>
+        </TouchableOpacity>
 
-      {/* Logout */}
-      <TouchableOpacity
-        className="flex-row items-center py-4"
-        onPress={() => setShowLogoutDialog(true)}
-        activeOpacity={0.7}>
-        <Text className="flex-1 text-base font-ibm-medium" style={{ color: theme.error }}>
-          {$t('AUTH.LOGOUT')}
-        </Text>
-      </TouchableOpacity>
+        {/* Logout */}
+        <TouchableOpacity
+          className="flex-row items-center py-4"
+          onPress={() => setShowLogoutDialog(true)}
+          activeOpacity={0.7}>
+          <Text className="flex-1 text-base font-ibm-medium" style={{ color: theme.error }}>
+            {$t('AUTH.LOGOUT')}
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       <ConfirmationDialog
         visible={showLogoutDialog}

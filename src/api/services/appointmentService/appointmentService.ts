@@ -43,7 +43,6 @@ export const appointmentService = {
     const nowIso = new Date().toISOString();
     const q = query(
       colRef,
-      where('dateTime', '>=', nowIso),
       orderBy('dateTime', 'asc'),
       limit(maxResults * 2), // over-fetch to compensate for client-side status filter
     );

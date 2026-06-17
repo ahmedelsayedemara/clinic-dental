@@ -6,6 +6,7 @@ import ScreenContainer from '@/components/global/ScreenContainer';
 import AppHeader from '@/components/global/AppHeader';
 import SearchBar from '@/components/global/SearchBar';
 import Empty from '@/components/global/Empty';
+import AnimatedListItem from '@/components/global/AnimatedListItem';
 import { PatientSearchResultCard } from '@/components/patients';
 import { Text } from '@/components/UI';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -70,8 +71,10 @@ export default function SearchScreen({ navigation }: Props) {
 
   // Render helpers
   const renderItem = useCallback(
-    ({ item }: { item: Patient }) => (
-      <PatientSearchResultCard patient={item} onPress={handlePatientPress} />
+    ({ item, index }: { item: Patient; index: number }) => (
+      <AnimatedListItem index={index} itemKey={item.id}>
+        <PatientSearchResultCard patient={item} onPress={handlePatientPress} />
+      </AnimatedListItem>
     ),
     [handlePatientPress],
   );
