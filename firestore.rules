@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Users collection — own profile only
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Patients — all authenticated staff can read/write
+    match /patients/{patientId} {
+      allow read, write: if isAuthenticated();
+
+      // Subcollections: visits and attachments
+      match /visits/{visitId} {
+        allow read, write: if isAuthenticated();
+      }
+      match /attachments/{attachmentId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+
+    // Appointments — all authenticated staff can read/write
+    match /appointments/{appointmentId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}

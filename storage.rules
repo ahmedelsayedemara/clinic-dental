@@ -1,0 +1,36 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper: check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper: check file size is under 20 MB
+    function isUnderSizeLimit() {
+      return request.resource.size < 20 * 1024 * 1024;
+    }
+
+    // Helper: check content type is an allowed file type
+    function isAllowedType() {
+      return request.resource.contentType.matches('image/.*')
+          || request.resource.contentType == 'application/pdf';
+    }
+
+    // Patient attachments — authenticated staff only
+    // Path: patients/{patientId}/attachments/{fileName}
+    match /patients/{patientId}/attachments/{fileName} {
+      // Read: any authenticated user
+      allow read: if isAuthenticated();
+
+      // Write (upload/replace): authenticated + size + type checks
+      allow write: if isAuthenticated()
+                   && isUnderSizeLimit()
+                   && isAllowedType();
+
+      // Delete: any authenticated user
+      allow delete: if isAuthenticated();
+    }
+  }
+}

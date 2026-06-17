@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# React Native
+.metro-health-check*
+
+# Bundle artifacts
+*.jsbundle
+*.bundle
+
+# iOS
+ios/Pods/
+ios/build/
+ios/*.xcworkspace/xcuserdata/
+ios/*.xcodeproj/xcuserdata/
+*.hmap
+*.ipa
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+*.apk
+*.aab
+*.cxx
+.cxx/
+*keystore
+!debug.keystore
+.kotlin/
+
+# Env
+.env
+.env.*
+!.env.example
+google-services.json
+GoogleService-Info.plist
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Misc
+.DS_Store
