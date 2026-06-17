@@ -203,7 +203,9 @@ export default function AppointmentsScreen() {
       {/* FAB */}
       <TouchableOpacity
         onPress={handleAddAppointment}
-        style={[styles.fab, { backgroundColor: theme.primary }]}>
+        className="absolute bottom-20 right-6 w-14 h-14 rounded-full items-center justify-center"
+        style={{ backgroundColor: theme.primary }}
+        activeOpacity={0.85}>
         <MaterialDesignIcons name="plus" size={28} color="#FFFFFF" />
       </TouchableOpacity>
     </ScreenContainer>

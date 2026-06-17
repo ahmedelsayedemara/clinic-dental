@@ -89,7 +89,6 @@ export default function LoginScreen({ navigation }: Props) {
             <FormInput
               name="email"
               label={$t('AUTH.EMAIL')}
-              placeholder={$t('AUTH.EMAIL_PLACEHOLDER')}
               keyboardType="email-address"
               autoCapitalize="none"
               autoComplete="email"
@@ -97,7 +96,6 @@ export default function LoginScreen({ navigation }: Props) {
             <FormInput
               name="password"
               label={$t('AUTH.PASSWORD')}
-              placeholder={$t('AUTH.PASSWORD_PLACEHOLDER')}
               secureTextEntry
             />
 
@@ -110,13 +108,16 @@ export default function LoginScreen({ navigation }: Props) {
                 {$t('AUTH.FORGOT_PASSWORD')}
               </Text>
             </View>
+            <View>
 
-            <FormButton
-              title={$t('AUTH.LOGIN')}
-              onPress={() => handleSubmit()}
-              loading={isLoading}
-              
-            />
+              <FormButton
+                title={$t('AUTH.LOGIN')}
+                onPress={() => handleSubmit()}
+                loading={isLoading}
+
+              />
+            </View>
+
           </View>
         )}
       </Formik>

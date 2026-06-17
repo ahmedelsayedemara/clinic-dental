@@ -79,18 +79,17 @@ export const patientService = {
     const pageLimit = params.limit ?? 20;
 
     if (params.searchQuery) {
-      // Search mode: use array-contains + nameLower sort; no cursor pagination
+      // Search mode: array-contains alone (automatic single-field index, no composite
+      // index required); sort by name client-side. No cursor pagination.
       const token = params.searchQuery.toLowerCase().trim();
-      const q = query(
-        colRef,
-        where('searchKeywords', 'array-contains', token),
-        orderBy('nameLower'),
-        limit(pageLimit),
-      );
+      const q = query(colRef, where('searchKeywords', 'array-contains', token), limit(pageLimit));
       const snapshot = await getDocs(q);
-      const patients = snapshot.docs.map(
-        (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) => ({ id: d.id, ...d.data() } as Patient),
-      );
+      const patients = snapshot.docs
+        .map(
+          (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
+            ({ id: d.id, ...d.data() } as Patient),
+        )
+        .sort((a: Patient, b: Patient) => (a.fullName ?? '').localeCompare(b.fullName ?? ''));
       return { patients, lastDoc: null };
     }
 
@@ -186,19 +185,17 @@ export const patientService = {
     const colRef = collection(db, PATIENT_COLLECTION);
     const token = searchQuery.toLowerCase().trim();
 
-    console.log("token",token)
-
-    const q = query(
-      colRef,
-      where('searchKeywords', 'array-contains', token),
-      orderBy('nameLower'),
-      limit(maxResults),
-    );
+    // array-contains alone uses Firestore's automatic single-field index, so no
+    // deployed composite index is required. Sort by name client-side instead of
+    // orderBy('nameLower') to avoid the searchKeywords+nameLower composite index.
+    const q = query(colRef, where('searchKeywords', 'array-contains', token), limit(maxResults));
 
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(
-      (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) => ({ id: d.id, ...d.data() } as Patient),
-    );
+    return snapshot.docs
+      .map(
+        (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) => ({ id: d.id, ...d.data() } as Patient),
+      )
+      .sort((a: Patient, b: Patient) => (a.fullName ?? '').localeCompare(b.fullName ?? ''));
   },
 
   /**

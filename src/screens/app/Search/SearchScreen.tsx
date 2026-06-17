@@ -38,7 +38,10 @@ export default function SearchScreen({ navigation }: Props) {
       try {
         const patients = await patientService.searchPatientsRequest(query);
         setResults(patients);
-      } catch (_error) {
+      } catch (error) {
+        // A missing/!READY composite index throws here (FAILED_PRECONDITION) and
+        // would otherwise look identical to "no results". Surface it.
+        console.warn('Patient search failed:', error);
         setResults([]);
       } finally {
         setIsSearching(false);
