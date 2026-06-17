@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
@@ -189,13 +189,20 @@ export default function AddEditAppointmentScreen({ navigation, route }: Props) {
     { label: $t('APPOINTMENTS.STATUS_CANCELLED'), value: 'cancelled' },
   ];
 
-  const initialValues = {
-    patientId: prefetchedAppointment?.patientId ?? prefilledPatientId ?? '',
-    dateTime: prefetchedAppointment?.dateTime ?? new Date().toISOString(),
-    status: prefetchedAppointment?.status ?? 'pending',
-    notes: prefetchedAppointment?.notes ?? '',
-    reminderAt: prefetchedAppointment?.reminderAt ?? '',
-  };
+  // Compute the default "now" once — recomputing new Date() every render would make
+  // `initialValues` look different each render and, with enableReinitialize, reset the
+  // form (wiping the selected patient) on every render.
+  const defaultDateTime = useRef(new Date().toISOString()).current;
+  const initialValues = useMemo(
+    () => ({
+      patientId: prefetchedAppointment?.patientId ?? prefilledPatientId ?? '',
+      dateTime: prefetchedAppointment?.dateTime ?? defaultDateTime,
+      status: prefetchedAppointment?.status ?? 'pending',
+      notes: prefetchedAppointment?.notes ?? '',
+      reminderAt: prefetchedAppointment?.reminderAt ?? '',
+    }),
+    [prefetchedAppointment, prefilledPatientId, defaultDateTime],
+  );
 
   // Render helpers
   const renderPatientItem = useCallback(

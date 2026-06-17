@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
@@ -7,12 +7,7 @@ import Toast from 'react-native-toast-message';
 import ScreenContainer from '@/components/global/ScreenContainer';
 import AppHeader from '@/components/global/AppHeader';
 import SectionLoader from '@/components/global/SectionLoader';
-import {
-  FormDatePicker,
-  FormTextAreaInput,
-  FormInput,
-  FormButton,
-} from '@/components/form';
+import { FormDatePicker, FormTextAreaInput, FormInput, FormButton } from '@/components/form';
 import { Text } from '@/components/UI';
 import { useTheme } from '@/theme/ThemeProvider';
 import { visitService } from '@/api/services/visitService/visitService';
@@ -70,14 +65,21 @@ export default function AddEditVisitScreen({ navigation, route }: Props) {
     }
   }, [isEdit, fetchVisit]);
 
-  const initialValues = {
-    visitDate: prefetchedVisit?.visitDate ?? new Date().toISOString(),
-    diagnosis: prefetchedVisit?.diagnosis ?? '',
-    treatmentPerformed: prefetchedVisit?.treatmentPerformed ?? '',
-    notes: prefetchedVisit?.notes ?? '',
-    amountTotal: prefetchedVisit?.amountTotal?.toString() ?? '',
-    amountPaid: prefetchedVisit?.amountPaid?.toString() ?? '',
-  };
+  // Compute the default "now" once — recomputing new Date() every render would make
+  // `initialValues` look different each render and, with enableReinitialize, reset the
+  // form (wiping user input) on every render.
+  const defaultVisitDate = useRef(new Date().toISOString()).current;
+  const initialValues = useMemo(
+    () => ({
+      visitDate: prefetchedVisit?.visitDate ?? defaultVisitDate,
+      diagnosis: prefetchedVisit?.diagnosis ?? '',
+      treatmentPerformed: prefetchedVisit?.treatmentPerformed ?? '',
+      notes: prefetchedVisit?.notes ?? '',
+      amountTotal: prefetchedVisit?.amountTotal?.toString() ?? '',
+      amountPaid: prefetchedVisit?.amountPaid?.toString() ?? '',
+    }),
+    [prefetchedVisit, defaultVisitDate],
+  );
 
   const handleSubmit = async (values: typeof initialValues) => {
     setIsLoading(true);
@@ -108,11 +110,7 @@ export default function AddEditVisitScreen({ navigation, route }: Props) {
 
   // Return UI
   return (
-    <ScreenContainer
-      safeAreaEdges={['top', 'bottom']}
-      scrollable
-      keyboardAvoiding
-      padded={false}>
+    <ScreenContainer safeAreaEdges={['top', 'bottom']} scrollable keyboardAvoiding padded={false}>
       <AppHeader
         title={isEdit ? $t('VISITS.EDIT_VISIT') : $t('VISITS.ADD_VISIT')}
         onBack={() => navigation.goBack()}
@@ -130,9 +128,7 @@ export default function AddEditVisitScreen({ navigation, route }: Props) {
           {({ handleSubmit: formikSubmit }) => (
             <View className="px-4 pb-8">
               {/* Section 1: Visit Info */}
-              <Text
-                className="text-base font-ibm-bold mt-4 mb-3"
-                style={{ color: theme.text }}>
+              <Text className="text-base font-ibm-bold mt-4 mb-3" style={{ color: theme.text }}>
                 {$t('VISITS.VISIT_INFO_SECTION')}
               </Text>
 
@@ -142,25 +138,14 @@ export default function AddEditVisitScreen({ navigation, route }: Props) {
                 maximumDate={new Date(2100, 11, 31)}
               />
 
-              <FormTextAreaInput
-                name="diagnosis"
-                label={$t('VISITS.DIAGNOSIS')}
-              />
+              <FormTextAreaInput name="diagnosis" label={$t('VISITS.DIAGNOSIS')} />
 
-              <FormTextAreaInput
-                name="treatmentPerformed"
-                label={$t('VISITS.TREATMENT')}
-              />
+              <FormTextAreaInput name="treatmentPerformed" label={$t('VISITS.TREATMENT')} />
 
-              <FormTextAreaInput
-                name="notes"
-                label={$t('VISITS.NOTES')}
-              />
+              <FormTextAreaInput name="notes" label={$t('VISITS.NOTES')} />
 
               {/* Section 2: Payment */}
-              <Text
-                className="text-base font-ibm-bold mt-4 mb-3"
-                style={{ color: theme.text }}>
+              <Text className="text-base font-ibm-bold mt-4 mb-3" style={{ color: theme.text }}>
                 {$t('VISITS.PAYMENT_SECTION')}
               </Text>
 
