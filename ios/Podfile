@@ -5,6 +5,14 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
+# RN 0.84 ships React Native Core as a PREBUILT binary clang module by default
+# (RCT_USE_PREBUILT_RNCORE=1). Under use_frameworks!, third-party Obj-C pods like
+# @react-native-firebase import React-Core as that module, and preprocessor macros
+# (RCT_EXPORT_METHOD / RCT_EXPORT_MODULE) do NOT cross the module boundary — so they
+# never expand and RNFBStorage/RNFBMessaging fail to compile. Build React-Core from
+# source instead so the macros are textually visible to these modules.
+ENV['RCT_USE_PREBUILT_RNCORE'] = '0'
+
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
@@ -42,5 +50,16 @@ target 'ClinicApp' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # @react-native-firebase + use_frameworks!: the RNFB Obj-C modules (RNFBApp, etc.)
+    # build as clang framework modules but #import non-modular React-Core headers
+    # (RCTConvert.h, RCTBridgeModule.h, RCTEventEmitter.h). -Werror promotes the
+    # -Wnon-modular-include-in-framework-module warning to a hard error (xcodebuild 65),
+    # so allow non-modular includes for every pod target.
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |build_config|
+        build_config.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
+      end
+    end
   end
 end

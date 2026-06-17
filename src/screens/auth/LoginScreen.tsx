@@ -115,6 +115,7 @@ export default function LoginScreen({ navigation }: Props) {
               title={$t('AUTH.LOGIN')}
               onPress={() => handleSubmit()}
               loading={isLoading}
+              
             />
           </View>
         )}

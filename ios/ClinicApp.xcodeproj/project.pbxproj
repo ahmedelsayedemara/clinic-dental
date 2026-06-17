@@ -13,6 +13,13 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		CF326821DC29B6C851EE013A /* Pods_ClinicApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DECA86D003B049909E45F1B /* Pods_ClinicApp.framework */; };
 		F82F63212FE2E07D0066C242 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F82F63202FE2E07D0066C242 /* GoogleService-Info.plist */; };
+		B44BE97A013E4FCFB9CC70D9 /* IBMPlexSansArabic-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DFB7129A40549B2ADCFAE56 /* IBMPlexSansArabic-SemiBold.ttf */; };
+		BD284BE83A2E4367AD0655D5 /* IBMPlexSansArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24CA624ADCE24E5B92E9D803 /* IBMPlexSansArabic-Regular.ttf */; };
+		D1ADEBB4E0964C3F95D0B13E /* IBMPlexSansArabic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38BD27CED1434D75BA40974F /* IBMPlexSansArabic-Light.ttf */; };
+		40044459525D43509823A55B /* IBMPlexSansArabic-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C721990CFC8E46F3AE0FE9E5 /* IBMPlexSansArabic-ExtraLight.ttf */; };
+		B1E9F7D65FDB409AB9293454 /* IBMPlexSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75FD1CDD4E3843D4A0B37D3A /* IBMPlexSansArabic-Bold.ttf */; };
+		99CE10E8E0724170A6FC6D83 /* IBMPlexSansArabic-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 08CA379FA9784FC484DD3D70 /* IBMPlexSansArabic-Thin.ttf */; };
+		64981815C5374A83904B18C2 /* IBMPlexSansArabic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1819B87CD62C4D04AF81AE33 /* IBMPlexSansArabic-Medium.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +34,13 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ClinicApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F82F63202FE2E07D0066C242 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9DFB7129A40549B2ADCFAE56 /* IBMPlexSansArabic-SemiBold.ttf */ = {isa = PBXFileReference; name = "IBMPlexSansArabic-SemiBold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		24CA624ADCE24E5B92E9D803 /* IBMPlexSansArabic-Regular.ttf */ = {isa = PBXFileReference; name = "IBMPlexSansArabic-Regular.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		38BD27CED1434D75BA40974F /* IBMPlexSansArabic-Light.ttf */ = {isa = PBXFileReference; name = "IBMPlexSansArabic-Light.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C721990CFC8E46F3AE0FE9E5 /* IBMPlexSansArabic-ExtraLight.ttf */ = {isa = PBXFileReference; name = "IBMPlexSansArabic-ExtraLight.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		75FD1CDD4E3843D4A0B37D3A /* IBMPlexSansArabic-Bold.ttf */ = {isa = PBXFileReference; name = "IBMPlexSansArabic-Bold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		08CA379FA9784FC484DD3D70 /* IBMPlexSansArabic-Thin.ttf */ = {isa = PBXFileReference; name = "IBMPlexSansArabic-Thin.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1819B87CD62C4D04AF81AE33 /* IBMPlexSansArabic-Medium.ttf */ = {isa = PBXFileReference; name = "IBMPlexSansArabic-Medium.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +92,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				F795977CFF72467694E2F0F4 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -100,6 +115,21 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		F795977CFF72467694E2F0F4 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				9DFB7129A40549B2ADCFAE56 /* IBMPlexSansArabic-SemiBold.ttf */,
+				24CA624ADCE24E5B92E9D803 /* IBMPlexSansArabic-Regular.ttf */,
+				38BD27CED1434D75BA40974F /* IBMPlexSansArabic-Light.ttf */,
+				C721990CFC8E46F3AE0FE9E5 /* IBMPlexSansArabic-ExtraLight.ttf */,
+				75FD1CDD4E3843D4A0B37D3A /* IBMPlexSansArabic-Bold.ttf */,
+				08CA379FA9784FC484DD3D70 /* IBMPlexSansArabic-Thin.ttf */,
+				1819B87CD62C4D04AF81AE33 /* IBMPlexSansArabic-Medium.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -166,6 +196,13 @@
 				F82F63212FE2E07D0066C242 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				62B8F9BD93BD74574C62D6D7 /* PrivacyInfo.xcprivacy in Resources */,
+				B44BE97A013E4FCFB9CC70D9 /* IBMPlexSansArabic-SemiBold.ttf in Resources */,
+				BD284BE83A2E4367AD0655D5 /* IBMPlexSansArabic-Regular.ttf in Resources */,
+				D1ADEBB4E0964C3F95D0B13E /* IBMPlexSansArabic-Light.ttf in Resources */,
+				40044459525D43509823A55B /* IBMPlexSansArabic-ExtraLight.ttf in Resources */,
+				B1E9F7D65FDB409AB9293454 /* IBMPlexSansArabic-Bold.ttf in Resources */,
+				99CE10E8E0724170A6FC6D83 /* IBMPlexSansArabic-Thin.ttf in Resources */,
+				64981815C5374A83904B18C2 /* IBMPlexSansArabic-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +429,16 @@
 					"${PODS_ROOT}/React-NativeModulesApple",
 					"${PODS_ROOT}/React-graphics",
 					"${PODS_ROOT}/React-graphics/react/renderer/graphics/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -480,6 +527,16 @@
 					"${PODS_ROOT}/React-NativeModulesApple",
 					"${PODS_ROOT}/React-graphics",
 					"${PODS_ROOT}/React-graphics/react/renderer/graphics/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (

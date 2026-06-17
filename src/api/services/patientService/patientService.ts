@@ -186,6 +186,8 @@ export const patientService = {
     const colRef = collection(db, PATIENT_COLLECTION);
     const token = searchQuery.toLowerCase().trim();
 
+    console.log("token",token)
+
     const q = query(
       colRef,
       where('searchKeywords', 'array-contains', token),

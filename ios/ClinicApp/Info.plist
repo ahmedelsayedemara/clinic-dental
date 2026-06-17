@@ -36,13 +36,26 @@
 	<key>NSCameraUsageDescription</key>
 	<string>نحتاج إذن الكاميرا لالتقاط صور وأشعة المرضى وإرفاقها بملف المريض.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>نحتاج إذن حفظ الصور في مكتبة الصور.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>نحتاج إذن الوصول إلى الصور لإرفاق صور وأشعة المرضى.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Feather.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialDesignIcons.ttf</string>
+		<string>IBMPlexSansArabic-SemiBold.ttf</string>
+		<string>IBMPlexSansArabic-Regular.ttf</string>
+		<string>IBMPlexSansArabic-Light.ttf</string>
+		<string>IBMPlexSansArabic-ExtraLight.ttf</string>
+		<string>IBMPlexSansArabic-Bold.ttf</string>
+		<string>IBMPlexSansArabic-Thin.ttf</string>
+		<string>IBMPlexSansArabic-Medium.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

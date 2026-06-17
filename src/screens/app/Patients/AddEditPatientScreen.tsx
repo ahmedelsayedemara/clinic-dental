@@ -115,6 +115,7 @@ export default function AddEditPatientScreen({ navigation, route }: Props) {
       Toast.show({ type: 'success', text1: $t('PATIENTS.SAVED_SUCCESS') });
       navigation.goBack();
     } catch (_error) {
+      console.log("error",_error)
       Toast.show({ type: 'error', text1: $t('COMMON.SOMETHING_WENT_WRONG') });
     } finally {
       setIsLoading(false);

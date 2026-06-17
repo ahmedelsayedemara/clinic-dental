@@ -17,6 +17,14 @@ export default function FirebaseProvider({ children }: FirebaseProviderProps) {
   const { setUser, setAuthenticated, setLoading } = useAuthStore();
 
   useEffect(() => {
+    // Add/edit forms build payloads with `field || undefined` to omit empty optional
+    // fields. Firestore rejects `undefined` values by default ("Unsupported field value:
+    // undefined" thrown from buildNativeMap), so enable ignoreUndefinedProperties to drop
+    // them instead. Set once at bootstrap, before any write can occur.
+    getFirestore()
+      .settings({ ignoreUndefinedProperties: true })
+      .catch(() => {});
+
     // Listen to Firebase Auth state changes
     const auth = getAuth();
     const unsubscribeAuth = onAuthStateChanged(auth, async firebaseUser => {
