@@ -91,6 +91,7 @@
     "ARCHIVE_INFO": "معلومات الأرشيف",
     "ARCHIVE_YEAR": "سنة الأرشيف",
     "ARCHIVE_MONTH": "شهر الأرشيف",
+    "ENTRY_DATE": "تاريخ الدخول",
     "MEDICAL_HISTORY": "التاريخ الطبي",
     "DIAGNOSIS": "التشخيص",
     "TREATMENT_PLAN": "خطة العلاج",

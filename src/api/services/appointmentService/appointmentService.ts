@@ -48,12 +48,27 @@ export const appointmentService = {
     );
     const snapshot = await getDocs(q);
     const all = snapshot.docs.map(
-      (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) => ({ id: d.id, ...d.data() }) as Appointment,
+      (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
+        ({ id: d.id, ...d.data() } as Appointment),
     );
     // Exclude terminal statuses client-side
-    return all
-      .filter((a: Appointment) => a.status !== 'cancelled' && a.status !== 'completed')
-      .slice(0, maxResults);
+    return all.filter((a: Appointment) => a.status !== 'completed').slice(0, maxResults);
+  },
+
+  /**
+   * Fetch every appointment regardless of status or date, ordered by dateTime
+   * ascending (same day-chronological order the Appointments tab groups by).
+   * The tab screen filters by status ('all' | pending | confirmed | completed |
+   * cancelled) client-side, so the data source must include every status.
+   */
+  getAllAppointmentsRequest: async (): Promise<Appointment[]> => {
+    const colRef = appointmentsColRef();
+    const q = query(colRef, orderBy('dateTime', 'asc'));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(
+      (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
+        ({ id: d.id, ...d.data() } as Appointment),
+    );
   },
 
   /**
@@ -71,7 +86,8 @@ export const appointmentService = {
     );
     const snapshot = await getDocs(q);
     return snapshot.docs.map(
-      (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) => ({ id: d.id, ...d.data() }) as Appointment,
+      (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
+        ({ id: d.id, ...d.data() } as Appointment),
     );
   },
 
@@ -84,7 +100,8 @@ export const appointmentService = {
     const q = query(colRef, where('patientId', '==', patientId), orderBy('dateTime', 'desc'));
     const snapshot = await getDocs(q);
     return snapshot.docs.map(
-      (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) => ({ id: d.id, ...d.data() }) as Appointment,
+      (d: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
+        ({ id: d.id, ...d.data() } as Appointment),
     );
   },
 

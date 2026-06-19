@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useFocusEffect } from '@react-navigation/native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import Toast from 'react-native-toast-message';
 import ScreenContainer from '@/components/global/ScreenContainer';
@@ -39,6 +40,7 @@ export default function PatientDetailsScreen({ navigation, route }: Props) {
   // Variables
   const { theme } = useTheme();
   const { patientId } = route.params;
+  const isFirstFocus = useRef(true);
 
   // Hooks
   const {
@@ -98,6 +100,19 @@ export default function PatientDetailsScreen({ navigation, route }: Props) {
   useEffect(() => {
     fetchPatient();
   }, [fetchPatient]);
+
+  // Refresh the visits list whenever the screen regains focus (e.g. returning
+  // from Add/Edit Visit or Visit Details). Skip the first focus since useVisits
+  // loads on mount.
+  useFocusEffect(
+    useCallback(() => {
+      if (isFirstFocus.current) {
+        isFirstFocus.current = false;
+        return;
+      }
+      refreshVisits();
+    }, [refreshVisits]),
+  );
 
   // Return UI
   return (

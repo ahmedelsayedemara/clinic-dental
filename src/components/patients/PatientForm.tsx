@@ -10,6 +10,7 @@ import {
   FormButton,
 } from '@/components/form';
 import SectionHeader from '@/components/global/SectionHeader';
+import { FormSchemaProvider } from '@/helper/useFieldRequired';
 
 export interface PatientFormValues {
   fullName: string;
@@ -19,8 +20,7 @@ export interface PatientFormValues {
   gender: string;
   notes: string;
   fileNumber: string;
-  archiveYear: string;
-  archiveMonth: string;
+  entryDate: string;
   medicalHistory: string;
   diagnosis: string;
   treatmentPlan: string;
@@ -39,16 +39,6 @@ const validationSchema = Yup.object().shape({
     .required($t('VALIDATORS.REQUIRED'))
     .matches(/^[0-9+\s()-]{7,20}$/, $t('VALIDATORS.MOBILE')),
   fileNumber: Yup.string().required($t('VALIDATORS.REQUIRED')),
-  archiveYear: Yup.number()
-    .transform((value, originalValue) => (originalValue === '' ? undefined : value))
-    .nullable()
-    .min(1900)
-    .max(2100),
-  archiveMonth: Yup.number()
-    .transform((value, originalValue) => (originalValue === '' ? undefined : value))
-    .nullable()
-    .min(1)
-    .max(12),
 });
 
 const genderOptions = [
@@ -63,54 +53,51 @@ export default function PatientForm({
   onSubmit,
 }: PatientFormProps) {
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-      enableReinitialize>
-      {({ handleSubmit }) => (
-        <View className="px-4 pb-8">
-          {/* Section 1: Personal Info */}
-          <SectionHeader title={$t('PATIENTS.PERSONAL_INFO')} />
+    <FormSchemaProvider schema={validationSchema}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+        enableReinitialize>
+        {({ handleSubmit }) => (
+          <View className="px-4 pb-8">
+            {/* Section 1: Personal Info */}
+            <SectionHeader title={$t('PATIENTS.PERSONAL_INFO')} />
 
-          <FormInput name="fullName" label={$t('PATIENTS.FULL_NAME')} />
-          <FormInput name="mobile" label={$t('PATIENTS.MOBILE')} keyboardType="phone-pad" />
-          <FormInput name="address" label={$t('PATIENTS.ADDRESS')} />
-          <FormDatePicker name="dateOfBirth" placeholder={$t('PATIENTS.DATE_OF_BIRTH')} />
-          <FormSelect
-            name="gender"
-            label={$t('PATIENTS.GENDER')}
-            options={genderOptions}
-            placeholder={$t('COMMON.SELECT_OPTION')}
-          />
-          <FormTextAreaInput name="notes" label={$t('PATIENTS.NOTES')} />
+            <FormInput name="fullName" label={$t('PATIENTS.FULL_NAME')} />
+            <FormInput name="mobile" label={$t('PATIENTS.MOBILE')} keyboardType="phone-pad" />
+            <FormInput name="address" label={$t('PATIENTS.ADDRESS')} />
+            <FormDatePicker name="dateOfBirth" placeholder={$t('PATIENTS.DATE_OF_BIRTH')} />
+            <FormSelect
+              name="gender"
+              label={$t('PATIENTS.GENDER')}
+              options={genderOptions}
+              placeholder={$t('COMMON.SELECT_OPTION')}
+            />
+            <FormTextAreaInput name="notes" label={$t('PATIENTS.NOTES')} />
 
-          {/* Section 2: Archive / Physical File */}
-          <SectionHeader title={$t('PATIENTS.ARCHIVE_SECTION')} />
+            {/* Section 2: Archive / Physical File */}
+            <SectionHeader title={$t('PATIENTS.ARCHIVE_SECTION')} />
 
-          <FormInput name="fileNumber" label={$t('PATIENTS.FILE_NUMBER')} />
-          <FormInput name="archiveYear" label={$t('PATIENTS.ARCHIVE_YEAR')} keyboardType="numeric" />
-          <FormInput
-            name="archiveMonth"
-            label={$t('PATIENTS.ARCHIVE_MONTH')}
-            keyboardType="numeric"
-          />
+            <FormInput name="fileNumber" label={$t('PATIENTS.FILE_NUMBER')} />
+            <FormDatePicker name="entryDate" label={$t('PATIENTS.ENTRY_DATE')} />
 
-          {/* Section 3: Medical Info */}
-          <SectionHeader title={$t('PATIENTS.MEDICAL_SECTION')} />
+            {/* Section 3: Medical Info */}
+            <SectionHeader title={$t('PATIENTS.MEDICAL_SECTION')} />
 
-          <FormTextAreaInput name="medicalHistory" label={$t('PATIENTS.MEDICAL_HISTORY')} />
-          <FormTextAreaInput name="diagnosis" label={$t('PATIENTS.DIAGNOSIS')} />
-          <FormTextAreaInput name="treatmentPlan" label={$t('PATIENTS.TREATMENT_PLAN')} />
+            <FormTextAreaInput name="medicalHistory" label={$t('PATIENTS.MEDICAL_HISTORY')} />
+            <FormTextAreaInput name="diagnosis" label={$t('PATIENTS.DIAGNOSIS')} />
+            <FormTextAreaInput name="treatmentPlan" label={$t('PATIENTS.TREATMENT_PLAN')} />
 
-          {/* Submit */}
-          <FormButton
-            title={isEdit ? $t('COMMON.UPDATE') : $t('COMMON.SAVE')}
-            loading={isLoading}
-            onPress={() => handleSubmit()}
-          />
-        </View>
-      )}
-    </Formik>
+            {/* Submit */}
+            <FormButton
+              title={isEdit ? $t('COMMON.UPDATE') : $t('COMMON.SAVE')}
+              loading={isLoading}
+              onPress={() => handleSubmit()}
+            />
+          </View>
+        )}
+      </Formik>
+    </FormSchemaProvider>
   );
 }

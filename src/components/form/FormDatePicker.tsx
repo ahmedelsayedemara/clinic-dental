@@ -5,6 +5,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTheme } from '@/theme/ThemeProvider';
 import { colors } from '@/theme/colors';
 import { Ionicons } from '@react-native-vector-icons/ionicons';
+import { useFieldRequired } from '@/helper/useFieldRequired';
+import { FormLabel } from './FormLabel';
 
 function formatDate(date: Date): string {
   const d = date.getDate().toString().padStart(2, '0');
@@ -14,6 +16,8 @@ function formatDate(date: Date): string {
 
 interface FormDatePickerProps {
   name: string;
+  label?: string;
+  required?: boolean;
   placeholder?: string;
   minimumDate?: Date;
   maximumDate?: Date;
@@ -21,11 +25,15 @@ interface FormDatePickerProps {
 
 export default function FormDatePicker({
   name,
+  label,
+  required,
   placeholder,
   minimumDate = new Date(1940, 0, 1),
   maximumDate = new Date(),
 }: FormDatePickerProps) {
   const [field, meta, helpers] = useField(name);
+  const autoRequired = useFieldRequired(name);
+  const isRequired = required ?? autoRequired;
   const [isVisible, setIsVisible] = useState(false);
   const [tempDate, setTempDate] = useState<Date | null>(null);
   const hasError = meta.touched && meta.error;
@@ -63,6 +71,7 @@ export default function FormDatePicker({
 
   return (
     <View className="mb-[10px]">
+      {label && <FormLabel label={label} required={isRequired} />}
       <TouchableOpacity
         className="rounded-xl h-16 flex-row items-center justify-between px-4 border"
         style={{
@@ -74,7 +83,7 @@ export default function FormDatePicker({
         <Text
           className="text-base font-ibm-regular tracking-[-0.5]"
           style={{ color: currentDate ? theme.text : theme.textSecondary }}>
-          {currentDate ? formatDate(currentDate) : (placeholder ?? $t('PATIENTS.DATE_OF_BIRTH'))}
+          {currentDate ? formatDate(currentDate) : placeholder }
         </Text>
         <Ionicons name="calendar-outline" size={20} color={theme.textSecondary} />
       </TouchableOpacity>

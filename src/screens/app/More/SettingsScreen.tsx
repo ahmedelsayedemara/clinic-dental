@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { View, Switch, TouchableOpacity, Alert } from 'react-native';
+import { View, Switch, TouchableOpacity } from 'react-native';
+import RNRestart from 'react-native-restart';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { RootStackParamList } from '@/types/navigation';
@@ -31,18 +32,14 @@ export default function SettingsScreen({ navigation }: Props) {
       if (code === currentLanguage) return;
       await changeLanguage(code);
       setLanguage(code);
-      Alert.alert($t('MORE.RESTART_REQUIRED'), $t('MORE.RESTART_HINT'), [
-        { text: $t('COMMON.OK') },
-      ]);
+      setTimeout(() => RNRestart.restart(), 100);
     },
     [currentLanguage, setLanguage],
   );
 
   // Render helpers
   const renderSectionTitle = (title: string) => (
-    <Text
-      className="text-xs font-ibm-bold uppercase mb-2 mt-6"
-      style={{ color: theme.muted }}>
+    <Text className="text-xs font-ibm-bold uppercase mb-2 mt-6" style={{ color: theme.muted }}>
       {title}
     </Text>
   );
@@ -83,9 +80,7 @@ export default function SettingsScreen({ navigation }: Props) {
               onPress={() => handleSelectLanguage(lang.code)}
               className="flex-row items-center px-4 py-4"
               style={
-                index > 0
-                  ? { borderTopWidth: 1, borderTopColor: theme.cardBorder }
-                  : undefined
+                index > 0 ? { borderTopWidth: 1, borderTopColor: theme.cardBorder } : undefined
               }>
               <Text className="flex-1 text-base font-ibm-medium" style={{ color: theme.text }}>
                 {lang.label}

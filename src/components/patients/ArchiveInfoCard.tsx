@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { Text } from '@/components/UI';
 import { useTheme } from '@/theme/ThemeProvider';
+import { formatDate } from '@/helper';
 import { Patient } from '@/api/services/patientService/patientInterface';
 
 interface ArchiveInfoCardProps {
@@ -56,20 +57,16 @@ export default function ArchiveInfoCard({ patient }: ArchiveInfoCardProps) {
           </Text>
         </View>
 
-        {/* Grid: archive year, month */}
-        <View style={{ borderTopWidth: 1, borderTopColor: theme.primary + '20' }} className="pt-3">
-          <View className="flex-row">
-            {patient.archiveYear !== undefined && (
-              <ArchiveRow label={$t('PATIENTS.ARCHIVE_YEAR')} value={String(patient.archiveYear)} />
-            )}
-            {patient.archiveMonth !== undefined && (
-              <ArchiveRow
-                label={$t('PATIENTS.ARCHIVE_MONTH')}
-                value={String(patient.archiveMonth)}
-              />
-            )}
+        {/* Entry date */}
+        {patient.entryDate ? (
+          <View
+            style={{ borderTopWidth: 1, borderTopColor: theme.primary + '20' }}
+            className="pt-3">
+            <View className="flex-row">
+              <ArchiveRow label={$t('PATIENTS.ENTRY_DATE')} value={formatDate(patient.entryDate)} />
+            </View>
           </View>
-        </View>
+        ) : null}
       </View>
     </View>
   );

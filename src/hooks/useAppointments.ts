@@ -10,11 +10,11 @@ interface UseAppointmentsResult {
 }
 
 /**
- * Fetches upcoming (non-cancelled, non-completed) appointments ordered ascending.
+ * Fetches all appointments (every status) ordered ascending.
  * Mirrors the shape of usePatients — loading, hasFetched, refresh.
- * Used by the global Appointments tab screen.
+ * Used by the global Appointments tab screen, which filters by status client-side.
  */
-export function useAppointments(limit?: number): UseAppointmentsResult {
+export function useAppointments(): UseAppointmentsResult {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
@@ -27,7 +27,7 @@ export function useAppointments(limit?: number): UseAppointmentsResult {
     setIsLoading(true);
 
     try {
-      const result = await appointmentService.getUpcomingAppointmentsRequest(limit ?? 50);
+      const result = await appointmentService.getAllAppointmentsRequest();
       setAppointments(result);
       setHasFetched(true);
     } catch (_error) {
@@ -36,7 +36,7 @@ export function useAppointments(limit?: number): UseAppointmentsResult {
       setIsLoading(false);
       isFetchingRef.current = false;
     }
-  }, [limit]);
+  }, []);
 
   const refresh = useCallback(async () => {
     await fetchAppointments();

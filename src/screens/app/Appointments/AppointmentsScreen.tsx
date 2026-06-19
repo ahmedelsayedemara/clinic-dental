@@ -110,6 +110,8 @@ export default function AppointmentsScreen() {
     { label: $t('APPOINTMENTS.FILTER_ALL'), value: 'all' },
     { label: $t('APPOINTMENTS.STATUS_PENDING'), value: 'pending' },
     { label: $t('APPOINTMENTS.STATUS_CONFIRMED'), value: 'confirmed' },
+    { label: $t('APPOINTMENTS.STATUS_COMPLETED'), value: 'completed' },
+    { label: $t('APPOINTMENTS.STATUS_CANCELLED'), value: 'cancelled' },
   ];
 
   // Return UI

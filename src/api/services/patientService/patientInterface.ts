@@ -17,8 +17,7 @@ export interface Patient {
 
   // Archive / Physical File Location
   fileNumber: string; // indexed for search
-  archiveYear?: number;
-  archiveMonth?: number;
+  entryDate?: string; // ISO date the patient entered the clinic
 
   // Medical
   medicalHistory?: string;
@@ -52,8 +51,7 @@ export interface AddPatientPayload {
   gender?: Gender;
   notes?: string;
   fileNumber: string;
-  archiveYear?: number;
-  archiveMonth?: number;
+  entryDate?: string;
   medicalHistory?: string;
   diagnosis?: string;
   treatmentPlan?: string;

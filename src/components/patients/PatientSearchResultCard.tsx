@@ -4,6 +4,7 @@ import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-
 import { Text } from '@/components/UI';
 import { useTheme } from '@/theme/ThemeProvider';
 import { useScalePress } from '@/hooks/useAnimations';
+import { formatDate } from '@/helper';
 import { Patient } from '@/api/services/patientService/patientInterface';
 
 interface PatientSearchResultCardProps {
@@ -18,7 +19,7 @@ export default function PatientSearchResultCard({
   const { theme } = useTheme();
   const { onPressIn, onPressOut, animatedStyle } = useScalePress(0.97);
 
-  const hasArchiveLocation = patient.archiveYear || patient.archiveMonth;
+  const hasArchiveLocation = patient.fileNumber || patient.entryDate;
 
   return (
     <Animated.View style={[animatedStyle]}>
@@ -64,14 +65,14 @@ export default function PatientSearchResultCard({
               #{patient.fileNumber}
             </Text>
 
-            {/* Year / Month row */}
-            {(patient.archiveYear || patient.archiveMonth) && (
+            {/* Entry date row */}
+            {patient.entryDate && (
               <View className="flex-row items-center mb-1">
-                <MaterialDesignIcons name="archive-outline" size={13} color={theme.muted} />
+                <MaterialDesignIcons name="calendar-outline" size={13} color={theme.muted} />
                 <Text
                   className="text-sm font-ibm-regular ml-1.5"
                   style={{ color: theme.textSecondary }}>
-                  {[patient.archiveYear, patient.archiveMonth].filter(Boolean).join(' · ')}
+                  {formatDate(patient.entryDate)}
                 </Text>
               </View>
             )}

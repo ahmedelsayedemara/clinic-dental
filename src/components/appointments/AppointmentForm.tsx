@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { FormDatePicker, FormTextAreaInput, FormSelect, FormButton } from '@/components/form';
 import SectionHeader from '@/components/global/SectionHeader';
+import { FormSchemaProvider } from '@/helper/useFieldRequired';
 import { AppointmentStatus } from '@/api/services/appointmentService/appointmentInterface';
 import { Patient } from '@/api/services/patientService/patientInterface';
 import PatientSelectorField from './PatientSelectorField';
@@ -49,66 +50,68 @@ export default function AppointmentForm({
   const [showPatientPicker, setShowPatientPicker] = useState(false);
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-      enableReinitialize>
-      {({ handleSubmit, values, setFieldValue, errors, touched }) => (
-        <View className="px-4 pb-8">
-          {/* Section 1: Appointment Info */}
-          <SectionHeader title={$t('APPOINTMENTS.APPOINTMENT_INFO_SECTION')} />
+    <FormSchemaProvider schema={validationSchema}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+        enableReinitialize>
+        {({ handleSubmit, values, setFieldValue, errors, touched }) => (
+          <View className="px-4 pb-8">
+            {/* Section 1: Appointment Info */}
+            <SectionHeader title={$t('APPOINTMENTS.APPOINTMENT_INFO_SECTION')} />
 
-          <PatientSelectorField
-            label={$t('APPOINTMENTS.PATIENT')}
-            placeholder={$t('APPOINTMENTS.SELECT_PATIENT')}
-            value={values.patientName}
-            error={touched.patientId ? errors.patientId : undefined}
-            onPress={() => setShowPatientPicker(true)}
-          />
+            <PatientSelectorField
+              label={$t('APPOINTMENTS.PATIENT')}
+              placeholder={$t('APPOINTMENTS.SELECT_PATIENT')}
+              value={values.patientName}
+              error={touched.patientId ? errors.patientId : undefined}
+              onPress={() => setShowPatientPicker(true)}
+            />
 
-          <FormDatePicker
-            name="dateTime"
-            placeholder={$t('APPOINTMENTS.DATE')}
-            maximumDate={new Date(2100, 11, 31)}
-          />
+            <FormDatePicker
+              name="dateTime"
+              placeholder={$t('APPOINTMENTS.DATE')}
+              maximumDate={new Date(2100, 11, 31)}
+            />
 
-          <FormSelect
-            name="status"
-            label={$t('APPOINTMENTS.STATUS')}
-            options={statusOptions}
-            placeholder={$t('COMMON.SELECT_OPTION')}
-          />
+            <FormSelect
+              name="status"
+              label={$t('APPOINTMENTS.STATUS')}
+              options={statusOptions}
+              placeholder={$t('COMMON.SELECT_OPTION')}
+            />
 
-          <FormTextAreaInput name="notes" label={$t('APPOINTMENTS.NOTES')} />
+            <FormTextAreaInput name="notes" label={$t('APPOINTMENTS.NOTES')} />
 
-          {/* Section 2: Reminder */}
-          <SectionHeader title={$t('APPOINTMENTS.REMINDER_SECTION')} />
+            {/* Section 2: Reminder */}
+            <SectionHeader title={$t('APPOINTMENTS.REMINDER_SECTION')} />
 
-          <FormDatePicker
-            name="reminderAt"
-            placeholder={$t('APPOINTMENTS.REMINDER_TIME')}
-            maximumDate={new Date(2100, 11, 31)}
-          />
+            <FormDatePicker
+              name="reminderAt"
+              placeholder={$t('APPOINTMENTS.REMINDER_TIME')}
+              maximumDate={new Date(2100, 11, 31)}
+            />
 
-          {/* Submit */}
-          <FormButton
-            title={isEdit ? $t('COMMON.UPDATE') : $t('COMMON.SAVE')}
-            loading={isLoading}
-            onPress={() => handleSubmit()}
-          />
+            {/* Submit */}
+            <FormButton
+              title={isEdit ? $t('COMMON.UPDATE') : $t('COMMON.SAVE')}
+              loading={isLoading}
+              onPress={() => handleSubmit()}
+            />
 
-          <PatientPickerSheet
-            visible={showPatientPicker}
-            onClose={() => setShowPatientPicker(false)}
-            onSelect={(patient: Patient) => {
-              setFieldValue('patientId', patient.id);
-              setFieldValue('patientName', patient.fullName);
-              setShowPatientPicker(false);
-            }}
-          />
-        </View>
-      )}
-    </Formik>
+            <PatientPickerSheet
+              visible={showPatientPicker}
+              onClose={() => setShowPatientPicker(false)}
+              onSelect={(patient: Patient) => {
+                setFieldValue('patientId', patient.id);
+                setFieldValue('patientName', patient.fullName);
+                setShowPatientPicker(false);
+              }}
+            />
+          </View>
+        )}
+      </Formik>
+    </FormSchemaProvider>
   );
 }

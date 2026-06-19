@@ -1565,6 +1565,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
+  - react-native-restart (0.0.28):
+    - React-Core
   - react-native-safe-area-context (5.8.0):
     - hermes-engine
     - RCTRequired
@@ -2302,6 +2304,7 @@ DEPENDENCIES:
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-vector-icons-feather (from `../node_modules/@react-native-vector-icons/feather`)"
   - "react-native-vector-icons-ionicons (from `../node_modules/@react-native-vector-icons/ionicons`)"
@@ -2474,6 +2477,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-document-picker"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-restart:
+    :path: "../node_modules/react-native-restart"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-vector-icons-feather:
@@ -2652,6 +2657,7 @@ SPEC CHECKSUMS:
   React-microtasksnativemodule: 2169738f0157be0805c3d28197e7de0005c56c6b
   react-native-document-picker: f295326ef8abb37b9b538a20221ed17e2929a7d5
   react-native-image-picker: 91b5eb7c8fc59d57ad1a88213e906b7589dc4d22
+  react-native-restart: 1d2371f0f166cbc4b89f9ed2ffa64de9fa05a238
   react-native-safe-area-context: c20a2b66c37a6fd0e6d448dbec5b6fe0cc53bb11
   react-native-vector-icons-feather: 24d5a788448daee58371663c440300e185b7ee7e
   react-native-vector-icons-ionicons: 7e633927db6ab96e0255b5920c053777cacca505
