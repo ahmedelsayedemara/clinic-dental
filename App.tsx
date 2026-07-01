@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+import BootSplash from 'react-native-bootsplash';
 import Toast from 'react-native-toast-message';
 
 import '@/locale/i18n';
@@ -39,6 +40,7 @@ function App() {
     <SafeAreaProvider>
       <FirebaseProvider>
         <NavigationContainer
+          onReady={() => BootSplash.hide({ fade: true })}
           theme={{
             dark: isDark,
             colors: {

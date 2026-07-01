@@ -17,6 +17,8 @@
 		B1E9F7D65FDB409AB9293454 /* IBMPlexSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75FD1CDD4E3843D4A0B37D3A /* IBMPlexSansArabic-Bold.ttf */; };
 		B44BE97A013E4FCFB9CC70D9 /* IBMPlexSansArabic-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DFB7129A40549B2ADCFAE56 /* IBMPlexSansArabic-SemiBold.ttf */; };
 		BD284BE83A2E4367AD0655D5 /* IBMPlexSansArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24CA624ADCE24E5B92E9D803 /* IBMPlexSansArabic-Regular.ttf */; };
+		BE86D52E9FAA44AF97FA98FB /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EF7B05D1BF54DE1B9498AA4 /* BootSplash.storyboard */; };
+		C7335F70A63E4B7EBA3AD294 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38AF68D7AF9A49EB95A14154 /* Colors.xcassets */; };
 		CF326821DC29B6C851EE013A /* Pods_ClinicApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DECA86D003B049909E45F1B /* Pods_ClinicApp.framework */; };
 		D1ADEBB4E0964C3F95D0B13E /* IBMPlexSansArabic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38BD27CED1434D75BA40974F /* IBMPlexSansArabic-Light.ttf */; };
 		F82F63212FE2E07D0066C242 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F82F63202FE2E07D0066C242 /* GoogleService-Info.plist */; };
@@ -30,12 +32,14 @@
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = ClinicApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1819B87CD62C4D04AF81AE33 /* IBMPlexSansArabic-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Medium.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Medium.ttf"; sourceTree = "<group>"; };
 		24CA624ADCE24E5B92E9D803 /* IBMPlexSansArabic-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Regular.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Regular.ttf"; sourceTree = "<group>"; };
+		38AF68D7AF9A49EB95A14154 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = ClinicApp/Colors.xcassets; sourceTree = "<group>"; };
 		38BD27CED1434D75BA40974F /* IBMPlexSansArabic-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Light.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Light.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-ClinicApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClinicApp.debug.xcconfig"; path = "Target Support Files/Pods-ClinicApp/Pods-ClinicApp.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-ClinicApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClinicApp.release.xcconfig"; path = "Target Support Files/Pods-ClinicApp/Pods-ClinicApp.release.xcconfig"; sourceTree = "<group>"; };
 		75FD1CDD4E3843D4A0B37D3A /* IBMPlexSansArabic-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Bold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Bold.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ClinicApp/AppDelegate.swift; sourceTree = "<group>"; };
 		7DECA86D003B049909E45F1B /* Pods_ClinicApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClinicApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EF7B05D1BF54DE1B9498AA4 /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = ClinicApp/BootSplash.storyboard; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ClinicApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9DFB7129A40549B2ADCFAE56 /* IBMPlexSansArabic-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-SemiBold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-SemiBold.ttf"; sourceTree = "<group>"; };
 		C721990CFC8E46F3AE0FE9E5 /* IBMPlexSansArabic-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-ExtraLight.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				7EF7B05D1BF54DE1B9498AA4 /* BootSplash.storyboard */,
+				38AF68D7AF9A49EB95A14154 /* Colors.xcassets */,
 			);
 			name = ClinicApp;
 			sourceTree = "<group>";
@@ -203,6 +209,8 @@
 				B1E9F7D65FDB409AB9293454 /* IBMPlexSansArabic-Bold.ttf in Resources */,
 				99CE10E8E0724170A6FC6D83 /* IBMPlexSansArabic-Thin.ttf in Resources */,
 				64981815C5374A83904B18C2 /* IBMPlexSansArabic-Medium.ttf in Resources */,
+				BE86D52E9FAA44AF97FA98FB /* BootSplash.storyboard in Resources */,
+				C7335F70A63E4B7EBA3AD294 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

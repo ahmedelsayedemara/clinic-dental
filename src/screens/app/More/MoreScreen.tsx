@@ -51,7 +51,7 @@ export default function MoreScreen({ navigation }: Props) {
         </TouchableOpacity>
 
         {/* About */}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           className="flex-row items-center py-4 border-b"
           style={{ borderBottomColor: theme.border }}
           onPress={() => navigation.navigate(ScreenName.ABOUT_SCREEN)}
@@ -59,7 +59,7 @@ export default function MoreScreen({ navigation }: Props) {
           <Text className="flex-1 text-base font-ibm-medium" style={{ color: theme.text }}>
             {$t('MORE.ABOUT')}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {/* Logout */}
         <TouchableOpacity

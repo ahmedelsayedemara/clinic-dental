@@ -1,0 +1,27 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0E7490"/>
+      <stop offset="1" stop-color="#0C4A6E"/>
+    </linearGradient>
+    <linearGradient id="tooth" x1="512" y1="290" x2="512" y2="740" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E0F7FB"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Badge mark -->
+  <g transform="translate(40 34) scale(0.2461)">
+    <rect width="1024" height="1024" rx="224" fill="url(#bg)"/>
+    <g transform="translate(512 512) scale(1.16) translate(-512 -512)">
+      <path fill="url(#tooth)" d="M512,300 C470,296 430,298 400,326 C372,352 372,392 374,430 C377,486 396,520 410,566 C422,606 428,668 446,706 C456,728 478,728 488,704 C496,684 500,652 512,640 C524,652 528,684 536,704 C546,728 568,728 578,706 C596,668 602,606 614,566 C628,520 647,486 650,430 C652,392 652,352 624,326 C594,298 554,296 512,300 Z"/>
+      <g fill="#0E7490">
+        <rect x="492" y="380" width="40" height="120" rx="12"/>
+        <rect x="452" y="420" width="120" height="40" rx="12"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="330" y="190" font-family="IBM Plex Sans Arabic" font-weight="700" font-size="130" fill="#0C4A6E">Hany <tspan font-weight="400" fill="#0E7490">Clinic</tspan></text>
+</svg>
