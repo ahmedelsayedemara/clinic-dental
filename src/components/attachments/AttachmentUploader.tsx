@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import DocumentPicker from 'react-native-document-picker';
+import { pick, types, errorCodes, isErrorWithCode } from '@react-native-documents/picker';
 import BottomSheetModal from '@/components/global/BottomSheetModal';
 import { Text } from '@/components/UI';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -94,12 +94,11 @@ export default function AttachmentUploader({
 
   const handleUploadPdf = useCallback(async () => {
     try {
-      const result = await DocumentPicker.pick({ type: [DocumentPicker.types.pdf] });
-      const file = result[0];
+      const [file] = await pick({ type: [types.pdf] });
       if (!file?.uri) return;
       handleUpload('pdf', file.uri, file.name ?? `document_${Date.now()}.pdf`, 'application/pdf');
     } catch (e) {
-      if (!DocumentPicker.isCancel(e)) {
+      if (!(isErrorWithCode(e) && e.code === errorCodes.OPERATION_CANCELED)) {
         Alert.alert($t('COMMON.ERROR'), $t('COMMON.SOMETHING_WENT_WRONG'));
       }
     }
