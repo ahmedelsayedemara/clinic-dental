@@ -55,14 +55,20 @@ export function buildPatientSearchKeywords(data: {
     tokens.add(normalized.substring(0, i));
   }
 
-  // Mobile: raw string
-  if (data.mobile) {
-    tokens.add(data.mobile.trim());
+  // Mobile: prefix tokens so partial numbers match
+  const mobile = data.mobile?.trim();
+  if (mobile) {
+    for (let i = 1; i <= mobile.length; i++) {
+      tokens.add(mobile.substring(0, i));
+    }
   }
 
-  // File number: lowercased
-  if (data.fileNumber) {
-    tokens.add(data.fileNumber.toLowerCase().trim());
+  // File number: lowercased prefix tokens so partial file numbers match
+  const fileNumber = data.fileNumber?.toLowerCase().trim();
+  if (fileNumber) {
+    for (let i = 1; i <= fileNumber.length; i++) {
+      tokens.add(fileNumber.substring(0, i));
+    }
   }
 
   return Array.from(tokens);

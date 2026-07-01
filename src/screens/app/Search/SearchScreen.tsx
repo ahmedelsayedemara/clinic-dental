@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import ScreenContainer from '@/components/global/ScreenContainer';
 import AppHeader from '@/components/global/AppHeader';
 import SearchBar from '@/components/global/SearchBar';
 import Empty from '@/components/global/Empty';
+import AppScrollView from '@/components/global/AppScrollView';
 import AnimatedListItem from '@/components/global/AnimatedListItem';
 import { PatientSearchResultCard } from '@/components/patients';
 import { Text } from '@/components/UI';
@@ -64,22 +65,10 @@ export default function SearchScreen({ navigation }: Props) {
 
   const handlePatientPress = useCallback(
     (patientId: string) => {
-      navigation.navigate(ScreenName.PATIENT_DETAILS_SCREEN, { patientId });
+      navigation.replace(ScreenName.PATIENT_DETAILS_SCREEN, { patientId });
     },
     [navigation],
   );
-
-  // Render helpers
-  const renderItem = useCallback(
-    ({ item, index }: { item: Patient; index: number }) => (
-      <AnimatedListItem index={index} itemKey={item.id}>
-        <PatientSearchResultCard patient={item} onPress={handlePatientPress} />
-      </AnimatedListItem>
-    ),
-    [handlePatientPress],
-  );
-
-  const renderSeparator = useCallback(() => <View className="h-2" />, []);
 
   // Return UI
   return (
@@ -103,14 +92,15 @@ export default function SearchScreen({ navigation }: Props) {
           <Text className="text-xs font-ibm-medium mx-4 mb-2 mt-1" style={{ color: theme.muted }}>
             {$t('SEARCH.RESULTS_COUNT', { count: results.length })}
           </Text>
-          <FlatList
-            data={results}
-            keyExtractor={item => item.id}
-            renderItem={renderItem}
-            ItemSeparatorComponent={renderSeparator}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 24, paddingTop: 4 }}
-          />
+          <AppScrollView
+            padded={false}
+            contentContainerStyle={{ paddingBottom: 24, paddingTop: 4 }}>
+            {results.map((item, index) => (
+              <AnimatedListItem key={item.id} index={index} itemKey={item.id}>
+                <PatientSearchResultCard patient={item} onPress={handlePatientPress} />
+              </AnimatedListItem>
+            ))}
+          </AppScrollView>
         </>
       )}
 

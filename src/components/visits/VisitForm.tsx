@@ -56,8 +56,8 @@ export default function VisitForm({ initialValues, isEdit, isLoading, onSubmit }
               maximumDate={new Date(2100, 11, 31)}
             />
 
-            <FormTextAreaInput name="diagnosis" label={$t('VISITS.DIAGNOSIS')} />
-            <FormTextAreaInput name="treatmentPerformed" label={$t('VISITS.TREATMENT')} />
+            {/* <FormTextAreaInput name="diagnosis" label={$t('VISITS.DIAGNOSIS')} />
+            <FormTextAreaInput name="treatmentPerformed" label={$t('VISITS.TREATMENT')} /> */}
             <FormTextAreaInput name="notes" label={$t('VISITS.NOTES')} />
 
             {/* Section 2: Payment */}
@@ -68,7 +68,10 @@ export default function VisitForm({ initialValues, isEdit, isLoading, onSubmit }
               label={$t('VISITS.AMOUNT_TOTAL')}
               keyboardType="numeric"
             />
-            <FormInput name="amountPaid" label={$t('VISITS.AMOUNT_PAID')} keyboardType="numeric" />
+            <View className='mb-4'>
+
+              <FormInput name="amountPaid" label={$t('VISITS.AMOUNT_PAID')} keyboardType="numeric" />
+            </View>
 
             {/* Submit */}
             <FormButton

@@ -66,7 +66,11 @@ export default function PatientForm({
 
             <FormInput name="fullName" label={$t('PATIENTS.FULL_NAME')} />
             <FormInput name="mobile" label={$t('PATIENTS.MOBILE')} keyboardType="phone-pad" />
+            <FormInput name="fileNumber" label={$t('PATIENTS.FILE_NUMBER')} />
+
             <FormInput name="address" label={$t('PATIENTS.ADDRESS')} />
+            <FormDatePicker name="entryDate" label={$t('PATIENTS.ENTRY_DATE')} />
+
             <FormDatePicker name="dateOfBirth" placeholder={$t('PATIENTS.DATE_OF_BIRTH')} />
             <FormSelect
               name="gender"
@@ -76,18 +80,13 @@ export default function PatientForm({
             />
             <FormTextAreaInput name="notes" label={$t('PATIENTS.NOTES')} />
 
-            {/* Section 2: Archive / Physical File */}
-            <SectionHeader title={$t('PATIENTS.ARCHIVE_SECTION')} />
-
-            <FormInput name="fileNumber" label={$t('PATIENTS.FILE_NUMBER')} />
-            <FormDatePicker name="entryDate" label={$t('PATIENTS.ENTRY_DATE')} />
 
             {/* Section 3: Medical Info */}
-            <SectionHeader title={$t('PATIENTS.MEDICAL_SECTION')} />
+            {/* <SectionHeader title={$t('PATIENTS.MEDICAL_SECTION')} />
 
             <FormTextAreaInput name="medicalHistory" label={$t('PATIENTS.MEDICAL_HISTORY')} />
             <FormTextAreaInput name="diagnosis" label={$t('PATIENTS.DIAGNOSIS')} />
-            <FormTextAreaInput name="treatmentPlan" label={$t('PATIENTS.TREATMENT_PLAN')} />
+            <FormTextAreaInput name="treatmentPlan" label={$t('PATIENTS.TREATMENT_PLAN')} /> */}
 
             {/* Submit */}
             <FormButton
